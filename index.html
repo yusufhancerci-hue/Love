@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senin İçin ❤️</title>
+<style>
+body{
+background:#1e1e2f;
+color:white;
+text-align:center;
+font-family:sans-serif;
+margin-top:150px;
+overflow:hidden;
+}
+button{
+padding:15px 25px;
+font-size:18px;
+margin:10px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+position:relative;
+}
+#yes{
+background:#ff4d6d;
+color:white;
+}
+#no{
+background:#777;
+color:white;
+}
+</style>
+</head>
+<body>
+
+<h2 id="question">Beni seviyor musun? 🥺</h2>
+
+<button id="yes">Evet</button>
+<button id="no">Hayır</button>
+
+<script>
+let question = document.getElementById("question");
+let noBtn = document.getElementById("no");
+let yesBtn = document.getElementById("yes");
+
+noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
+
+function moveButton(){
+let x = Math.random() * (window.innerWidth - 100);
+let y = Math.random() * (window.innerHeight - 50);
+noBtn.style.position = "absolute";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+}
+
+yesBtn.addEventListener("click", function(){
+question.innerHTML="Biliyordum… 😌❤️<br><br>Benimle sonsuza kadar kalır mısın? 🥹";
+yesBtn.innerText="Tabii ki";
+noBtn.style.display="none";
+});
+</script>
+
+</body>
+</html>
