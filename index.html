@@ -3,63 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senin İçin ❤️</title>
+<title>Ayşe ❤️</title>
+
 <style>
 body{
-background:#1e1e2f;
+background:linear-gradient(135deg,#1e1e2f,#3a0ca3);
 color:white;
 text-align:center;
 font-family:sans-serif;
-margin-top:150px;
+margin-top:100px;
 overflow:hidden;
+transition:1s;
 }
+
+h2{
+min-height:80px;
+}
+
 button{
 padding:15px 25px;
 font-size:18px;
 margin:10px;
 border:none;
-border-radius:15px;
+border-radius:20px;
 cursor:pointer;
-position:relative;
+transition:0.3s;
 }
+
+button:hover{
+transform:scale(1.1);
+}
+
 #yes{
 background:#ff4d6d;
 color:white;
 }
+
 #no{
 background:#777;
 color:white;
+position:relative;
+}
+
+.heart{
+position:fixed;
+font-size:22px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{top:-10%;}
+100%{top:110%;}
+}
+
+#countdown{
+font-size:50px;
+margin-top:20px;
 }
 </style>
 </head>
 <body>
 
-<h2 id="question">Beni seviyor musun? 🥺</h2>
+<h2 id="question">Ayşe “Gözbebeğim”...<br>Bu kız beni sever mi? 🥺</h2>
 
 <button id="yes">Evet</button>
 <button id="no">Hayır</button>
 
-<script>
-let question = document.getElementById("question");
-let noBtn = document.getElementById("no");
-let yesBtn = document.getElementById("yes");
+<div id="countdown"></div>
 
-noBtn.addEventListener("touchstart", moveButton);
+<audio id="music">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9d0a7b2c79.mp3?filename=romantic-piano-110624.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let questions = [
+"Bu kız beni sever mi? 🥺",
+"Bu kız beni affetti mi? 😔",
+"Bu kız benim eşim olur mu? 💍",
+"Benimle sonsuza kadar kalır mısın? ❤️",
+"Artık sen benim Sevgilimsin 😏"
+];
+
+let stage = 0;
+
+let question = document.getElementById("question");
+let yesBtn = document.getElementById("yes");
+let noBtn = document.getElementById("no");
+let music = document.getElementById("music");
+let countdown = document.getElementById("countdown");
+
 noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
 
 function moveButton(){
 let x = Math.random() * (window.innerWidth - 100);
 let y = Math.random() * (window.innerHeight - 50);
-noBtn.style.position = "absolute";
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
+noBtn.style.position="absolute";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
 }
 
 yesBtn.addEventListener("click", function(){
-question.innerHTML="Biliyordum… 😌❤️<br><br>Benimle sonsuza kadar kalır mısın? 🥹";
-yesBtn.innerText="Tabii ki";
-noBtn.style.display="none";
+
+if(stage === 0){
+music.play();
+}
+
+if(stage < questions.length-1){
+stage++;
+question.innerHTML="Ayşe “Gözbebeğim”...<br>"+questions[stage];
+}
+else{
+finalScene();
+}
+
 });
+
+function finalScene(){
+yesBtn.style.display="none";
+noBtn.style.display="none";
+document.body.style.background="black";
+
+let count = 3;
+countdown.innerHTML = count;
+
+let interval = setInterval(function(){
+count--;
+if(count > 0){
+countdown.innerHTML = count;
+}else{
+clearInterval(interval);
+countdown.innerHTML = "";
+question.innerHTML="O zaman artık kaçış yok Gözbebeğim…<br>Sonsuza kadar yanımdasın 😌❤️";
+createHearts();
+}
+},1000);
+}
+
+function createHearts(){
+for(let i=0;i<40;i++){
+let heart=document.createElement("div");
+heart.innerHTML="❤️";
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(heart);
+}
+}
+
 </script>
 
 </body>
