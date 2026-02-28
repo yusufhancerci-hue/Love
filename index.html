@@ -7,40 +7,55 @@
 
 <style>
 body{
-background:linear-gradient(135deg,#1e1e2f,#3a0ca3);
+background:#1a001f;
 color:white;
 text-align:center;
-font-family:sans-serif;
+font-family: 'Segoe UI', sans-serif;
 margin-top:100px;
 overflow:hidden;
 transition:1s;
 }
 
+/* romantik ışık efekti */
+body::before{
+content:"";
+position:fixed;
+top:-200px;
+left:-200px;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#ff4d6d55,transparent 70%);
+filter:blur(100px);
+z-index:-1;
+}
+
 h2{
 min-height:80px;
+font-weight:500;
 }
 
 button{
-padding:15px 25px;
+padding:15px 30px;
 font-size:18px;
 margin:10px;
 border:none;
-border-radius:20px;
+border-radius:30px;
 cursor:pointer;
 transition:0.3s;
 }
 
 button:hover{
-transform:scale(1.1);
+transform:scale(1.08);
 }
 
 #yes{
 background:#ff4d6d;
 color:white;
+box-shadow:0 0 15px #ff4d6d88;
 }
 
 #no{
-background:#777;
+background:#555;
 color:white;
 position:relative;
 }
@@ -57,7 +72,7 @@ animation:fall linear infinite;
 }
 
 #countdown{
-font-size:50px;
+font-size:60px;
 margin-top:20px;
 }
 </style>
@@ -71,7 +86,7 @@ margin-top:20px;
 
 <div id="countdown"></div>
 
-<audio id="music">
+<audio id="music" preload="auto">
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9d0a7b2c79.mp3?filename=romantic-piano-110624.mp3" type="audio/mpeg">
 </audio>
 
@@ -93,8 +108,8 @@ let noBtn = document.getElementById("no");
 let music = document.getElementById("music");
 let countdown = document.getElementById("countdown");
 
-noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
 
 function moveButton(){
 let x = Math.random() * (window.innerWidth - 100);
@@ -106,8 +121,10 @@ noBtn.style.top=y+"px";
 
 yesBtn.addEventListener("click", function(){
 
+// Müzik ilk tıklamada başlasın
 if(stage === 0){
-music.play();
+music.load();
+music.play().catch(()=>{});
 }
 
 if(stage < questions.length-1){
@@ -123,7 +140,7 @@ finalScene();
 function finalScene(){
 yesBtn.style.display="none";
 noBtn.style.display="none";
-document.body.style.background="black";
+document.body.style.background="#000";
 
 let count = 3;
 countdown.innerHTML = count;
